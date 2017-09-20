@@ -656,7 +656,7 @@
         date = arguments[0];
         fromArgs = true;
       } else {
-        date = (this.isInput ? this.element.val() : this.element.find('input').val()) || this.element.data('date') || this.initialDate;
+        date = (this.isInput ? this.element.val() : this.element.find('input[type=text]').val()) || this.element.data('date') || this.initialDate;
         if (typeof date === 'string') {
           date = date.replace(/^\s+|\s+$/g,'');
         }
