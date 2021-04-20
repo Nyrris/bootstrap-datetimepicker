@@ -325,12 +325,12 @@
     this.endDate = new Date(8639968443048000);
     this.datesDisabled = [];
     this.daysOfWeekDisabled = [];
-    this.setStartDate(options.startDate || this.element.data('date-startdate'));
-    this.setEndDate(options.endDate || this.element.data('date-enddate'));
-    this.setDatesDisabled(options.datesDisabled || this.element.data('date-dates-disabled'));
-    this.setDaysOfWeekDisabled(options.daysOfWeekDisabled || this.element.data('date-days-of-week-disabled'));
-    this.setMinutesDisabled(options.minutesDisabled || this.element.data('date-minute-disabled'));
-    this.setHoursDisabled(options.hoursDisabled || this.element.data('date-hour-disabled'));
+    this.setStartDate(options.startDate || this.element.data('date-startdate'), false);
+    this.setEndDate(options.endDate || this.element.data('date-enddate'), false);
+    this.setDatesDisabled(options.datesDisabled || this.element.data('date-dates-disabled'), false);
+    this.setDaysOfWeekDisabled(options.daysOfWeekDisabled || this.element.data('date-days-of-week-disabled'), false);
+    this.setMinutesDisabled(options.minutesDisabled || this.element.data('date-minute-disabled'), false);
+    this.setHoursDisabled(options.hoursDisabled || this.element.data('date-hour-disabled'), false);
     this.fillDow();
     this.fillMonths();
     this.update();
@@ -527,25 +527,29 @@
       return DPGlobal.formatDate(this.date, format, this.language, this.formatType, this.timezone);
     },
 
-    setStartDate: function (startDate) {
+    setStartDate: function (startDate, update) {
       this.startDate = startDate || this.startDate;
       if (this.startDate.valueOf() !== 8639968443048000) {
         this.startDate = DPGlobal.parseDate(this.startDate, this.format, this.language, this.formatType, this.timezone);
       }
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
-    setEndDate: function (endDate) {
+    setEndDate: function (endDate, update) {
       this.endDate = endDate || this.endDate;
       if (this.endDate.valueOf() !== 8639968443048000) {
         this.endDate = DPGlobal.parseDate(this.endDate, this.format, this.language, this.formatType, this.timezone);
       }
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
-    setDatesDisabled: function (datesDisabled) {
+    setDatesDisabled: function (datesDisabled, update) {
       this.datesDisabled = datesDisabled || [];
       if (!$.isArray(this.datesDisabled)) {
         this.datesDisabled = this.datesDisabled.split(/,\s*/);
@@ -554,8 +558,10 @@
       this.datesDisabled = $.map(this.datesDisabled, function (d) {
         return DPGlobal.parseDate(d, mThis.format, mThis.language, mThis.formatType, mThis.timezone).toDateString();
       });
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
     setTitle: function (selector, value) {
@@ -564,7 +570,7 @@
         .text(this.title === false ? value : this.title);
     },
 
-    setDaysOfWeekDisabled: function (daysOfWeekDisabled) {
+    setDaysOfWeekDisabled: function (daysOfWeekDisabled, update) {
       this.daysOfWeekDisabled = daysOfWeekDisabled || [];
       if (!$.isArray(this.daysOfWeekDisabled)) {
         this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/);
@@ -572,11 +578,13 @@
       this.daysOfWeekDisabled = $.map(this.daysOfWeekDisabled, function (d) {
         return parseInt(d, 10);
       });
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
-    setMinutesDisabled: function (minutesDisabled) {
+    setMinutesDisabled: function (minutesDisabled, update) {
       this.minutesDisabled = minutesDisabled || [];
       if (!$.isArray(this.minutesDisabled)) {
         this.minutesDisabled = this.minutesDisabled.split(/,\s*/);
@@ -584,11 +592,13 @@
       this.minutesDisabled = $.map(this.minutesDisabled, function (d) {
         return parseInt(d, 10);
       });
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
-    setHoursDisabled: function (hoursDisabled) {
+    setHoursDisabled: function (hoursDisabled, update) {
       this.hoursDisabled = hoursDisabled || [];
       if (!$.isArray(this.hoursDisabled)) {
         this.hoursDisabled = this.hoursDisabled.split(/,\s*/);
@@ -596,8 +606,10 @@
       this.hoursDisabled = $.map(this.hoursDisabled, function (d) {
         return parseInt(d, 10);
       });
-      this.update();
-      this.updateNavArrows();
+      if(update === undefined || update === true) {
+        this.update();
+        this.updateNavArrows();
+      }
     },
 
     place: function () {
